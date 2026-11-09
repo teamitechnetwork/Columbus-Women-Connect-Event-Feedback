@@ -136,6 +136,7 @@ export default async function handler(
     });
     res.status(502).json({
       error: "We couldn't save your feedback just now. Please try again.",
+      code: "apps_script_unreachable",
     });
     return;
   }
@@ -165,21 +166,27 @@ export default async function handler(
     !submittedAt ||
     !Number.isFinite(submittedAt.getTime())
   ) {
+    const errorCode =
+      typeof sheetResult?.errorCode === "string" &&
+      [
+        "missing_script_properties",
+        "secret_mismatch",
+        "invalid_feedback",
+        "sheet_write_failed",
+        "empty_request",
+        "invalid_json",
+      ].includes(sheetResult.errorCode)
+        ? sheetResult.errorCode
+        : "invalid_response";
     console.error("Feedback Apps Script delivery was rejected.", {
       status: sheetResponse.status,
-      code:
-        typeof sheetResult?.errorCode === "string" &&
-        [
-          "missing_script_properties",
-          "secret_mismatch",
-          "invalid_feedback",
-          "sheet_write_failed",
-        ].includes(sheetResult.errorCode)
-          ? sheetResult.errorCode
-          : "invalid_response",
+      code: errorCode,
     });
+    // TEMPORARY: "code" and "upstreamStatus" help debugging. Remove once working.
     res.status(502).json({
       error: "We couldn't save your feedback just now. Please try again.",
+      code: errorCode,
+      upstreamStatus: sheetResponse.status,
     });
     return;
   }
