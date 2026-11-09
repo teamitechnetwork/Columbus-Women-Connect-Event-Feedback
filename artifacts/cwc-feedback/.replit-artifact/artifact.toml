@@ -1,7 +1,7 @@
 kind = "web"
 previewPath = "/"
 title = "Columbus Women Connect Feedback"
-description = "A welcoming post-event feedback form for participants of Columbus Women Connect’s Third Multicultural Annual Conference, collecting ratings, comments, and follow-up preferences."
+description = "A post-event feedback form for Columbus Women Connect conference participants, with ratings, comments, and follow-up preferences."
 version = "1.0.0"
 id = "artifacts/cwc-feedback"
 router = "path"

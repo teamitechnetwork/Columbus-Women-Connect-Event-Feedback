@@ -40,6 +40,11 @@ append fails.
 
 ## Vercel build
 
-`vercel.json` builds the feedback form from the pnpm workspace and serves its
-static output. `api/feedback.ts` handles `POST /api/feedback`, matching the route
-already used by the form.
+Import the repository with the Vercel **Root Directory** set to the repository
+root (`.`). Do not set it to `artifacts/cwc-feedback`: the root config needs the
+pnpm workspace and `api/feedback.ts`.
+
+`vercel.json` installs the pinned pnpm workspace, runs the Vite build with the
+required `PORT` and `BASE_PATH`, and serves
+`artifacts/cwc-feedback/dist/public`. The root-level `api/feedback.ts` handles
+`POST /api/feedback`, matching the route already used by the form.
