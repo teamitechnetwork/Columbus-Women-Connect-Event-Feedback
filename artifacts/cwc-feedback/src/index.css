@@ -451,7 +451,7 @@ button, input, textarea {
   padding: 8px 12px;
   color: #8b245a;
   background: rgba(255,255,255,.54);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: .04em;
   text-align: center;
@@ -494,7 +494,7 @@ button, input, textarea {
   gap: 8px;
   margin-bottom: 13px;
   color: #f8cde1;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: .15em;
   text-transform: uppercase;
@@ -511,7 +511,7 @@ button, input, textarea {
   max-width: 570px;
   margin: 0;
   font-family: var(--app-font-serif);
-  font-size: clamp(32px, 5.3vw, 48px);
+  font-size: clamp(34px, 5.5vw, 50px);
   font-weight: 500;
   letter-spacing: -.035em;
   line-height: 1.04;
@@ -521,7 +521,7 @@ button, input, textarea {
   max-width: 545px;
   margin: 15px 0 0;
   color: rgba(255,255,255,.82);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.65;
 }
 
@@ -546,7 +546,7 @@ button, input, textarea {
 .form-topline h2 {
   margin: 0;
   color: var(--ink);
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: -.02em;
 }
@@ -554,13 +554,13 @@ button, input, textarea {
 .form-topline p {
   margin: 5px 0 0;
   color: #777487;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .required-note {
   padding-top: 4px;
   color: #777487;
-  font-size: 11px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -585,7 +585,7 @@ button, input, textarea {
 .section-heading h3 {
   margin: 0;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -607,13 +607,13 @@ button, input, textarea {
 
 .field label, .choice-title {
   color: #454256;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .optional {
   color: #92909d;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -625,7 +625,7 @@ button, input, textarea {
   padding: 12px 13px;
   background: #fff;
   color: #302e46;
-  font-size: 13px;
+  font-size: 14px;
   transition: border-color .18s ease, box-shadow .18s ease;
 }
 
@@ -651,7 +651,7 @@ button, input, textarea {
 .rating-question {
   margin: 0 0 15px;
   color: #454256;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -712,7 +712,7 @@ button, input, textarea {
 
 .rating-caption {
   color: #858291;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1;
 }
 
@@ -721,7 +721,7 @@ button, input, textarea {
   justify-content: space-between;
   margin-top: 8px;
   color: #8b8996;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .choice-block + .choice-block {
@@ -736,7 +736,7 @@ button, input, textarea {
 .choice-hint {
   margin: -3px 0 11px;
   color: #858291;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.45;
 }
 
@@ -760,7 +760,7 @@ button, input, textarea {
   background: #fff;
   color: #575466;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   transition: border-color .18s ease, background-color .18s ease;
 }
@@ -779,7 +779,7 @@ button, input, textarea {
   padding: 13px 14px;
   background: #f0f6f6;
   color: #46636a;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -795,7 +795,7 @@ button, input, textarea {
   border: 1px solid #76aab1;
   border-radius: 50%;
   color: #37808c;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 16px;
   text-align: center;
@@ -812,7 +812,7 @@ button, input, textarea {
   max-width: 280px;
   margin: 0;
   color: #83818f;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.45;
 }
 
@@ -828,7 +828,7 @@ button, input, textarea {
   background: #a91c67;
   color: white;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   box-shadow: 0 6px 14px rgba(169, 28, 103, .17);
   transition: transform .18s ease, background-color .18s ease, opacity .18s ease;
@@ -865,7 +865,7 @@ button, input, textarea {
   padding: 11px 13px;
   background: #fff6f5;
   color: #a33d43;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .footer-line {
@@ -875,7 +875,7 @@ button, input, textarea {
   gap: 12px;
   padding: 18px 5px 0;
   color: #858291;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .footer-line strong {
@@ -912,7 +912,7 @@ button, input, textarea {
   margin: 0;
   color: var(--ink);
   font-family: var(--app-font-serif);
-  font-size: 34px;
+  font-size: 36px;
   font-weight: 500;
   letter-spacing: -.035em;
 }
@@ -921,7 +921,7 @@ button, input, textarea {
   max-width: 450px;
   margin: 12px auto 0;
   color: #777487;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.65;
 }
 
@@ -944,26 +944,26 @@ button, input, textarea {
   .partner-logos--header .partner-logo--cwc { width: clamp(96px, 29vw, 120px); }
   .partner-logos--header .partner-logo--b4p { width: 44px; height: 44px; }
   .partner-logos--header .partner-logos-divider { height: 32px; margin: 0 7px; }
-  .event-chip { max-width: 133px; padding: 7px 9px; font-size: 9px; line-height: 1.35; }
+  .event-chip { max-width: 133px; padding: 7px 9px; font-size: 10px; line-height: 1.35; }
   .intro { border-radius: 19px; padding: 27px 23px 26px; }
-  .intro h1 { font-size: clamp(32px, 9vw, 42px); }
-  .intro p { margin-top: 12px; font-size: 13px; }
+  .intro h1 { font-size: clamp(34px, 9vw, 44px); }
+  .intro p { margin-top: 12px; font-size: 14px; }
   .form-card { margin-top: 13px; border-radius: 18px; padding: 23px 20px 24px; }
   .form-topline { padding-bottom: 17px; }
-  .form-topline h2 { font-size: 15px; }
-  .required-note { font-size: 10px; }
+  .form-topline h2 { font-size: 16px; }
+  .required-note { font-size: 11px; }
   .form-section { padding: 21px 0; }
   .field-grid { grid-template-columns: 1fr; gap: 15px; }
   .field.full { grid-column: auto; }
   .rating-options { gap: 6px; }
   .rating-option label { min-height: 57px; border-radius: 9px; }
-  .rating-caption { font-size: 8px; }
+  .rating-caption { font-size: 9px; }
   .submit-row { flex-direction: column-reverse; align-items: stretch; }
   .submit-button { width: 100%; }
   .submit-note { max-width: none; text-align: center; }
   .footer-line { flex-direction: column; text-align: center; }
   .success-card { padding: 39px 22px; }
-  .success-card h2 { font-size: 30px; }
+  .success-card h2 { font-size: 32px; }
   .partner-logos--confirmation { margin-top: 24px; padding: 6px 10px; }
   .partner-logos--confirmation .partner-logo--cwc { width: min(145px, 39vw); }
   .partner-logos--confirmation .partner-logo--b4p { width: 58px; height: 58px; }
