@@ -18,8 +18,8 @@ The route only returns success after Apps Script confirms that it appended a row
    **Who has access** to **Anyone**, then deploy and copy the web app URL ending
    in `/exec`.
 
-The script creates a `Feedback` tab and its header row the first time it runs.
-The Google account that deploys the script must have edit access to the sheet.
+The script appends to the existing `Responses` tab, creating it with the matching header row only if it is missing.
+The Google account that deploys the script must have edit access to the sheet. After later code changes, deploy a new web-app version (or update the existing deployment to that version); saving the editor alone does not update the `/exec` deployment.
 
 ## 2. Add Vercel environment variables
 
@@ -27,8 +27,8 @@ In the Vercel project, open **Settings → Environment Variables** and add:
 
 | Name | Value |
 | --- | --- |
-| `GOOGLE_SHEETS_WEB_APP_URL` | The Apps Script web app URL ending in `/exec` |
-| `GOOGLE_SHEETS_WEBHOOK_SECRET` | The same secret stored in Apps Script |
+| `GOOGLE_SHEETS_WEB_APP_URL` or `GOOGLE_SCRIPT_URL` | The Apps Script web app URL ending in `/exec` |
+| `GOOGLE_SHEETS_WEBHOOK_SECRET` or `GOOGLE_SCRIPT_SECRET` | The same secret stored in Apps Script |
 
 Add them to every environment where you expect submissions, then redeploy so
 the new values are available to the function.

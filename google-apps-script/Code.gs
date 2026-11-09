@@ -1,19 +1,19 @@
-const RESPONSE_TAB_NAME = "Feedback";
+const RESPONSE_TAB_NAME = "Responses";
 const SPREADSHEET_ID_PROPERTY = "GOOGLE_SHEETS_SPREADSHEET_ID";
 const WEBHOOK_SECRET_PROPERTY = "GOOGLE_SHEETS_WEBHOOK_SECRET";
 
 const HEADERS = [
-  "Submitted at",
+  "Timestamp",
   "Full name",
-  "Email",
-  "Phone",
+  "Email address",
+  "Phone number",
   "Organization",
-  "Overall rating",
-  "Most valuable",
-  "Improvements",
-  "Future topics",
-  "Contact requested",
-  "Future updates",
+  "How would you rate the event overall? (1-5)",
+  "What did you enjoy most?",
+  "What could be better next time?",
+  "What would you like at future events?",
+  "Would you like us to follow up with you?",
+  "Would you like updates about future events?",
 ];
 
 function doPost(event) {
@@ -25,13 +25,14 @@ function doPost(event) {
     const expectedSecret = properties.getProperty(WEBHOOK_SECRET_PROPERTY);
     const spreadsheetId = properties.getProperty(SPREADSHEET_ID_PROPERTY);
 
-    if (
-      !expectedSecret ||
-      !spreadsheetId ||
-      request.secret !== expectedSecret ||
-      !isValidFeedback(request.feedback)
-    ) {
-      return jsonResponse({ ok: false });
+    if (!expectedSecret || !spreadsheetId) {
+      return jsonResponse({ ok: false, errorCode: "missing_script_properties" });
+    }
+    if (request.secret !== expectedSecret) {
+      return jsonResponse({ ok: false, errorCode: "secret_mismatch" });
+    }
+    if (!isValidFeedback(request.feedback)) {
+      return jsonResponse({ ok: false, errorCode: "invalid_feedback" });
     }
 
     lock = LockService.getScriptLock();
@@ -70,7 +71,7 @@ function doPost(event) {
       submittedAt: submittedAt,
     });
   } catch (_error) {
-    return jsonResponse({ ok: false });
+    return jsonResponse({ ok: false, errorCode: "sheet_write_failed" });
   } finally {
     if (lock && lock.hasLock()) {
       lock.releaseLock();

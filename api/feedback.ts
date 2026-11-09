@@ -32,6 +32,7 @@ type SheetResponse = {
   ok?: unknown;
   id?: unknown;
   submittedAt?: unknown;
+  errorCode?: unknown;
 };
 
 function isOptionalText(value: unknown, maxLength: number): boolean {
@@ -130,6 +131,9 @@ export default async function handler(
       signal: AbortSignal.timeout(8_000),
     });
   } catch {
+    console.error("Feedback Apps Script request failed.", {
+      code: "apps_script_unreachable",
+    });
     res.status(502).json({
       error: "We couldn't save your feedback just now. Please try again.",
     });
@@ -141,6 +145,9 @@ export default async function handler(
     sheetResult = (await sheetResponse.json()) as SheetResponse;
   } catch {
     // Treat a non-JSON or malformed Apps Script response as a failed delivery.
+    console.error("Feedback Apps Script response was not JSON.", {
+      status: sheetResponse.status,
+    });
   }
 
   const submittedAt =
@@ -158,6 +165,19 @@ export default async function handler(
     !submittedAt ||
     !Number.isFinite(submittedAt.getTime())
   ) {
+    console.error("Feedback Apps Script delivery was rejected.", {
+      status: sheetResponse.status,
+      code:
+        typeof sheetResult?.errorCode === "string" &&
+        [
+          "missing_script_properties",
+          "secret_mismatch",
+          "invalid_feedback",
+          "sheet_write_failed",
+        ].includes(sheetResult.errorCode)
+          ? sheetResult.errorCode
+          : "invalid_response",
+    });
     res.status(502).json({
       error: "We couldn't save your feedback just now. Please try again.",
     });
