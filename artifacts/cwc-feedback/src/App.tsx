@@ -23,12 +23,12 @@ const feedbackFormSchema = z.object({
   email: z.string().trim().email('Enter a valid email address.').max(254),
   phone: z.string().max(40),
   organization: z.string().max(120),
-  overallRating: z.number().int().min(1).max(5),
+  overallRating: z.coerce.number().int().min(1, 'Please choose a rating.').max(5),
   mostValuable: z.string().max(2000),
   improvements: z.string().max(2000),
   futureTopics: z.string().max(2000),
-  contactRequested: z.boolean(),
-  futureUpdates: z.boolean(),
+  contactRequested: z.preprocess((v) => v === true || v === 'yes', z.boolean()),
+  futureUpdates: z.preprocess((v) => v === true || v === 'yes', z.boolean()),
 });
 
 type FeedbackFormValues = z.infer<typeof feedbackFormSchema>;
@@ -161,7 +161,7 @@ function Home() {
                 <div className="rating-options">
                   {[1, 2, 3, 4, 5].map((rating) => (
                     <div className="rating-option" key={rating}>
-                      <input id={`rating-${rating}`} {...form.register('overallRating', { valueAsNumber: true })} type="radio" value={rating} required data-testid={`radio-rating-${rating}`} />
+                      <input id={`rating-${rating}`} {...form.register('overallRating')} type="radio" value={rating} required data-testid={`radio-rating-${rating}`} />
                       <label htmlFor={`rating-${rating}`}>
                         <span className="rating-num">{rating}</span>
                         <span className="rating-caption">{rating === 1 ? 'Poor' : rating === 3 ? 'Good' : rating === 5 ? 'Excellent' : '\u00a0'}</span>
@@ -197,7 +197,7 @@ function Home() {
                 <div className="radio-row" role="radiogroup" aria-labelledby="contact-label">
                   {['yes', 'no'].map((answer) => (
                     <div className="radio-option" key={answer}>
-                      <input id={`contact-${answer}`} {...form.register('contactRequested', { setValueAs: (value) => value === 'yes' })} type="radio" value={answer} data-testid={`radio-contact-${answer}`} />
+                      <input id={`contact-${answer}`} {...form.register('contactRequested')} type="radio" value={answer} data-testid={`radio-contact-${answer}`} />
                       <label htmlFor={`contact-${answer}`}>{answer === 'yes' ? 'Yes, please' : 'No, thanks'}</label>
                     </div>
                   ))}
@@ -209,7 +209,7 @@ function Home() {
                 <div className="radio-row" role="radiogroup" aria-labelledby="updates-label">
                   {['yes', 'no'].map((answer) => (
                     <div className="radio-option" key={answer}>
-                      <input id={`updates-${answer}`} {...form.register('futureUpdates', { setValueAs: (value) => value === 'yes' })} type="radio" value={answer} data-testid={`radio-updates-${answer}`} />
+                      <input id={`updates-${answer}`} {...form.register('futureUpdates')} type="radio" value={answer} data-testid={`radio-updates-${answer}`} />
                       <label htmlFor={`updates-${answer}`}>{answer === 'yes' ? 'Yes, send updates' : 'No, thanks'}</label>
                     </div>
                   ))}
