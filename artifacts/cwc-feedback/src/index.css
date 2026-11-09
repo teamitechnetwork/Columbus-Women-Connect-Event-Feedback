@@ -384,32 +384,65 @@ button, input, textarea {
   margin: 0 0 25px;
 }
 
-.brand-lockup {
+.partner-logos {
   display: flex;
   align-items: center;
-  gap: 12px;
+  flex: 0 1 auto;
+  min-width: 0;
+  border: 1px solid rgba(48, 46, 70, .09);
+  border-radius: 14px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 5px 16px rgba(49, 43, 77, .07);
 }
 
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 43px;
-  height: 43px;
-  border-radius: 14px 14px 14px 4px;
-  background: #353f91;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: -.04em;
+.partner-logo {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
-.brand-name {
-  color: #35324a;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .105em;
-  line-height: 1.18;
-  text-transform: uppercase;
+.partner-logo--cwc {
+  width: 134px;
+  max-height: 58px;
+  height: auto;
+}
+
+.partner-logo--b4p {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.partner-logos-divider {
+  width: 1px;
+  height: 38px;
+  flex: 0 0 auto;
+  margin: 0 11px;
+  background: #dedce4;
+}
+
+.partner-logos--confirmation {
+  width: fit-content;
+  max-width: 100%;
+  margin: 30px auto 0;
+  padding: 8px 14px;
+}
+
+.partner-logos--confirmation .partner-logo--cwc {
+  width: 155px;
+  max-height: 67px;
+}
+
+.partner-logos--confirmation .partner-logo--b4p {
+  width: 68px;
+  height: 68px;
+}
+
+.partner-logos--confirmation .partner-logos-divider {
+  height: 45px;
+  margin: 0 16px;
 }
 
 .event-chip {
@@ -907,8 +940,10 @@ button, input, textarea {
 @media (max-width: 600px) {
   .feedback-shell { padding: 20px 14px 36px; }
   .brand-row { margin-bottom: 17px; }
-  .brand-mark { width: 39px; height: 39px; }
-  .brand-name { font-size: 11px; }
+  .partner-logos--header { padding: 5px 8px; }
+  .partner-logos--header .partner-logo--cwc { width: clamp(96px, 29vw, 120px); }
+  .partner-logos--header .partner-logo--b4p { width: 44px; height: 44px; }
+  .partner-logos--header .partner-logos-divider { height: 32px; margin: 0 7px; }
   .event-chip { max-width: 133px; padding: 7px 9px; font-size: 9px; line-height: 1.35; }
   .intro { border-radius: 19px; padding: 27px 23px 26px; }
   .intro h1 { font-size: clamp(32px, 9vw, 42px); }
@@ -929,6 +964,28 @@ button, input, textarea {
   .footer-line { flex-direction: column; text-align: center; }
   .success-card { padding: 39px 22px; }
   .success-card h2 { font-size: 30px; }
+  .partner-logos--confirmation { margin-top: 24px; padding: 6px 10px; }
+  .partner-logos--confirmation .partner-logo--cwc { width: min(145px, 39vw); }
+  .partner-logos--confirmation .partner-logo--b4p { width: 58px; height: 58px; }
+  .partner-logos--confirmation .partner-logos-divider { height: 38px; margin: 0 10px; }
+}
+
+@media (max-width: 420px) {
+  .brand-row {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .partner-logos--header {
+    flex: 0 1 auto;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .event-chip {
+    max-width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -33,6 +33,32 @@ const feedbackFormSchema = z.object({
 
 type FeedbackFormValues = z.infer<typeof feedbackFormSchema>;
 
+function PartnerLogos({ placement }: { placement: 'header' | 'confirmation' }) {
+  return (
+    <div
+      className={`partner-logos partner-logos--${placement}`}
+      role="group"
+      aria-label="Columbus Women Connect and B4P Code Found"
+    >
+      <img
+        className="partner-logo partner-logo--cwc"
+        src="/cwc-logo.png"
+        alt="Columbus Women Connect"
+        width="212"
+        height="91"
+      />
+      <span className="partner-logos-divider" aria-hidden="true" />
+      <img
+        className="partner-logo partner-logo--b4p"
+        src="/b4p-logo.jpg"
+        alt="B4P Code Found"
+        width="715"
+        height="715"
+      />
+    </div>
+  );
+}
+
 function Home() {
   const createFeedback = useCreateFeedback();
   const [submitted, setSubmitted] = useState(false);
@@ -70,10 +96,7 @@ function Home() {
     <main className="feedback-shell clean-copy">
       <div className="feedback-wrap">
         <header className="brand-row" data-testid="header-conference-feedback">
-          <div className="brand-lockup" data-testid="brand-columbus-women-connect">
-            <div className="brand-mark" aria-hidden="true">CWC</div>
-            <div className="brand-name">Columbus<br />Women Connect</div>
-          </div>
+          <PartnerLogos placement="header" />
           <div className="event-chip" data-testid="text-conference-name">Third Multicultural Annual Conference</div>
         </header>
 
@@ -92,6 +115,7 @@ function Home() {
             <p>Your response will help Columbus Women Connect plan future gatherings.</p>
             <div className="success-divider" />
             <p>We’ll contact you only if you asked us to.</p>
+            <PartnerLogos placement="confirmation" />
           </section>
         ) : (
           <Form {...form}>
