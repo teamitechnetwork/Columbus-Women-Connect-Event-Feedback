@@ -136,7 +136,6 @@ export default async function handler(
     });
     res.status(502).json({
       error: "We couldn't save your feedback just now. Please try again.",
-      code: "apps_script_unreachable",
     });
     return;
   }
@@ -182,11 +181,8 @@ export default async function handler(
       status: sheetResponse.status,
       code: errorCode,
     });
-    // TEMPORARY: "code" and "upstreamStatus" help debugging. Remove once working.
     res.status(502).json({
       error: "We couldn't save your feedback just now. Please try again.",
-      code: errorCode,
-      upstreamStatus: sheetResponse.status,
     });
     return;
   }
