@@ -67,7 +67,7 @@ function Home() {
   }
 
   return (
-    <main className="feedback-shell">
+    <main className="feedback-shell clean-copy">
       <div className="feedback-wrap">
         <header className="brand-row" data-testid="header-conference-feedback">
           <div className="brand-lockup" data-testid="brand-columbus-women-connect">
@@ -78,10 +78,10 @@ function Home() {
         </header>
 
         <section className="intro" aria-labelledby="page-title">
-          <div className="eyebrow">Your voice shapes what comes next</div>
-          <h1 id="page-title" data-testid="text-form-title">Thank you for being part of it.</h1>
+          <div className="eyebrow">Conference feedback</div>
+          <h1 id="page-title" data-testid="text-form-title">Your feedback matters.</h1>
           <p data-testid="text-form-introduction">
-            We’re grateful you joined us. Share a little about your experience so we can make the next gathering even more meaningful.
+            Thank you for joining us. Tell us what worked and what we can improve for next time.
           </p>
         </section>
 
@@ -89,25 +89,24 @@ function Home() {
           <section className="success-card" role="status" aria-live="polite" data-testid="status-submission-success">
             <div className="success-symbol" aria-hidden="true">✓</div>
             <h2>Thank you for sharing.</h2>
-            <p>Your feedback has been received. We appreciate the time and care you put into helping Columbus Women Connect grow.</p>
+            <p>Your response will help Columbus Women Connect plan future gatherings.</p>
             <div className="success-divider" />
-            <p>We’ll be in touch only if you asked us to follow up or receive future event updates.</p>
+            <p>We’ll contact you only if you asked us to.</p>
           </section>
         ) : (
           <Form {...form}>
           <form className="form-card" onSubmit={form.handleSubmit(handleSubmit)} data-testid="form-event-feedback">
             <div className="form-topline">
               <div>
-                <h2>Conference reflection</h2>
-                <p>A few thoughtful answers are all we need.</p>
+                <h2>Share your feedback</h2>
+                <p>Answer a few questions about the event.</p>
               </div>
               <span className="required-note">* Required</span>
             </div>
 
             <section className="form-section" aria-labelledby="section-about">
               <div className="section-heading">
-                <span className="section-number">01</span>
-                <h3 id="section-about">A little about you</h3>
+                <h3 id="section-about">About you</h3>
               </div>
               <div className="field-grid">
                 <div className="field full">
@@ -124,72 +123,70 @@ function Home() {
                 </div>
                 <div className="field full">
                   <label htmlFor="organization">Organization <span className="optional">(optional)</span></label>
-                  <input id="organization" {...form.register('organization')} type="text" autoComplete="organization" placeholder="Organization or community you represent" data-testid="input-organization" />
+                  <input id="organization" {...form.register('organization')} type="text" autoComplete="organization" placeholder="Organization or community" data-testid="input-organization" />
                 </div>
               </div>
             </section>
 
             <section className="form-section" aria-labelledby="section-experience">
               <div className="section-heading">
-                <span className="section-number">02</span>
                 <h3 id="section-experience">Your experience</h3>
               </div>
               <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
-                <legend className="rating-question">Overall, how would you rate the conference? <span aria-hidden="true">*</span></legend>
+                <legend className="rating-question">How would you rate the event overall? <span aria-hidden="true">*</span></legend>
                 <div className="rating-options">
                   {[1, 2, 3, 4, 5].map((rating) => (
                     <div className="rating-option" key={rating}>
                       <input id={`rating-${rating}`} {...form.register('overallRating', { valueAsNumber: true })} type="radio" value={rating} required data-testid={`radio-rating-${rating}`} />
                       <label htmlFor={`rating-${rating}`}>
                         <span className="rating-num">{rating}</span>
-                        <span className="rating-caption">{rating === 1 ? 'Not for me' : rating === 3 ? 'It was good' : rating === 5 ? 'Loved it' : '\u00a0'}</span>
+                        <span className="rating-caption">{rating === 1 ? 'Poor' : rating === 3 ? 'Good' : rating === 5 ? 'Excellent' : '\u00a0'}</span>
                       </label>
                     </div>
                   ))}
                 </div>
-                <div className="rating-anchors"><span>1 — Needs work</span><span>5 — Excellent</span></div>
+                <div className="rating-anchors"><span>1 — Needs improvement</span><span>5 — Excellent</span></div>
               </fieldset>
               <div className="field-grid" style={{ marginTop: 22 }}>
                 <div className="field full">
-                  <label htmlFor="mostValuable">What was most valuable to you? <span className="optional">(optional)</span></label>
-                  <textarea id="mostValuable" {...form.register('mostValuable')} placeholder="A moment, conversation, resource, or idea that stayed with you…" data-testid="textarea-most-valuable" />
+                  <label htmlFor="mostValuable">What did you enjoy most? <span className="optional">(optional)</span></label>
+                  <textarea id="mostValuable" {...form.register('mostValuable')} placeholder="A speaker, conversation, or moment you enjoyed." data-testid="textarea-most-valuable" />
                 </div>
                 <div className="field full">
-                  <label htmlFor="improvements">What could we improve for next time? <span className="optional">(optional)</span></label>
-                  <textarea id="improvements" {...form.register('improvements')} placeholder="Your honest thoughts help us make this better." data-testid="textarea-improvements" />
+                  <label htmlFor="improvements">What could be better next time? <span className="optional">(optional)</span></label>
+                  <textarea id="improvements" {...form.register('improvements')} placeholder="What is one thing we could improve?" data-testid="textarea-improvements" />
                 </div>
                 <div className="field full">
-                  <label htmlFor="futureTopics">What topics or support would you like at future events? <span className="optional">(optional)</span></label>
-                  <textarea className="tall" id="futureTopics" {...form.register('futureTopics')} placeholder="Tell us what would be useful for you and your community." data-testid="textarea-future-topics" />
+                  <label htmlFor="futureTopics">What would you like at future events? <span className="optional">(optional)</span></label>
+                  <textarea className="tall" id="futureTopics" {...form.register('futureTopics')} placeholder="Share a topic, resource, or kind of support." data-testid="textarea-future-topics" />
                 </div>
               </div>
             </section>
 
             <section className="form-section" aria-labelledby="section-stay-connected">
               <div className="section-heading">
-                <span className="section-number">03</span>
-                <h3 id="section-stay-connected">Stay connected, your way</h3>
+                <h3 id="section-stay-connected">Stay in touch</h3>
               </div>
               <div className="choice-block">
-                <span className="choice-title" id="contact-label">Would you like someone from our team to follow up with you?</span>
-                <p className="choice-hint">A personal conversation about your feedback or support needs.</p>
+                <span className="choice-title" id="contact-label">Would you like us to follow up with you?</span>
+                <p className="choice-hint">Choose yes if you’d like a personal follow-up.</p>
                 <div className="radio-row" role="radiogroup" aria-labelledby="contact-label">
                   {['yes', 'no'].map((answer) => (
                     <div className="radio-option" key={answer}>
                       <input id={`contact-${answer}`} {...form.register('contactRequested', { setValueAs: (value) => value === 'yes' })} type="radio" value={answer} data-testid={`radio-contact-${answer}`} />
-                      <label htmlFor={`contact-${answer}`}>{answer === 'yes' ? 'Yes, please' : 'Not right now'}</label>
+                      <label htmlFor={`contact-${answer}`}>{answer === 'yes' ? 'Yes, please' : 'No, thanks'}</label>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="choice-block">
-                <span className="choice-title" id="updates-label">Would you like updates about future Columbus Women Connect events?</span>
-                <p className="choice-hint">We’ll only use your email for the updates you choose here.</p>
+                <span className="choice-title" id="updates-label">Would you like updates about future events?</span>
+                <p className="choice-hint">Choose yes to hear about upcoming events.</p>
                 <div className="radio-row" role="radiogroup" aria-labelledby="updates-label">
                   {['yes', 'no'].map((answer) => (
                     <div className="radio-option" key={answer}>
                       <input id={`updates-${answer}`} {...form.register('futureUpdates', { setValueAs: (value) => value === 'yes' })} type="radio" value={answer} data-testid={`radio-updates-${answer}`} />
-                      <label htmlFor={`updates-${answer}`}>{answer === 'yes' ? 'Yes, keep me posted' : 'No, thank you'}</label>
+                      <label htmlFor={`updates-${answer}`}>{answer === 'yes' ? 'Yes, send updates' : 'No, thanks'}</label>
                     </div>
                   ))}
                 </div>
@@ -198,15 +195,15 @@ function Home() {
 
             <div className="privacy-note" data-testid="text-privacy-note">
               <span className="privacy-mark" aria-hidden="true">i</span>
-              <span>Your contact choices are yours. We’ll respect what you select and use your feedback to help shape future gatherings.</span>
+              <span>We’ll contact you only based on the choices you make above.</span>
             </div>
 
             {submitError && <p className="form-error" role="alert" data-testid="status-submit-error">{submitError}</p>}
 
             <div className="submit-row">
-              <p className="submit-note">Your feedback helps the organizing team shape future gatherings.</p>
+              <p className="submit-note">Your feedback helps shape future events.</p>
               <button className="submit-button" type="submit" disabled={createFeedback.isPending} data-testid="button-submit-feedback">
-                {createFeedback.isPending ? 'Sending your feedback…' : 'Send my feedback'}
+                {createFeedback.isPending ? 'Submitting…' : 'Submit feedback'}
                 {!createFeedback.isPending && <span className="submit-arrow" aria-hidden="true">→</span>}
               </button>
             </div>

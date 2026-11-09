@@ -1,0 +1,46 @@
+.clean-copy .intro {
+  background: linear-gradient(115deg, #363f91 0%, #554585 68%, #8d326f 100%);
+  box-shadow: 0 12px 28px rgba(58, 49, 107, .09);
+}
+
+.clean-copy .section-heading {
+  gap: 0;
+}
+
+.clean-copy .experience-fields {
+  margin-top: 22px;
+}
+
+.clean-copy .privacy-note {
+  background: #f3f6f8;
+  color: #4e606d;
+}
+
+.clean-copy .submit-button {
+  background: #963065;
+  box-shadow: 0 4px 10px rgba(150, 48, 101, .14);
+}
+
+.clean-copy .submit-button:hover:not(:disabled) {
+  background: #812756;
+}
+
+.radio-option-button {
+  display: inline-flex;
+  min-width: 88px;
+  justify-content: center;
+  border: 1px solid #e3e0e9;
+  border-radius: 999px;
+  padding: 9px 17px;
+  background: #fff;
+  color: #575466;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: border-color .18s ease, background-color .18s ease;
+}
+
+.radio-option-button:hover {
+  border-color: #9c3170;
+  background: #f9edf4;
+}

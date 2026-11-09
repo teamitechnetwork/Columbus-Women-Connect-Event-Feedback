@@ -421,6 +421,15 @@ button, input, textarea {
   box-shadow: 0 0 0 22px rgba(255,255,255,.035), 0 0 0 48px rgba(255,255,255,.025);
 }
 
+.clean-copy .intro {
+  background: linear-gradient(115deg, #363f91 0%, #554585 68%, #8d326f 100%);
+  box-shadow: 0 12px 28px rgba(58, 49, 107, .09);
+}
+
+.clean-copy .intro::after {
+  opacity: .28;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -716,6 +725,11 @@ button, input, textarea {
   line-height: 1.5;
 }
 
+.clean-copy .privacy-note {
+  background: #f3f6f8;
+  color: #4e606d;
+}
+
 .privacy-mark {
   flex: 0 0 18px;
   width: 18px;
@@ -765,6 +779,15 @@ button, input, textarea {
 .submit-button:hover:not(:disabled) {
   transform: translateY(-1px);
   background: #901956;
+}
+
+.clean-copy .submit-button {
+  background: #963065;
+  box-shadow: 0 4px 10px rgba(150, 48, 101, .14);
+}
+
+.clean-copy .submit-button:hover:not(:disabled) {
+  background: #812756;
 }
 
 .submit-button:disabled {
