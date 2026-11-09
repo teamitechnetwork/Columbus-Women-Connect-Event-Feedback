@@ -8,7 +8,7 @@ A post-event form where Columbus Women Connect conference participants can rate 
 - Use the managed `artifacts/api-server: API Server` workflow for the Replit API at `/api`.
 - `pnpm run typecheck` — typecheck all workspace packages.
 - `pnpm run build` — typecheck and build all workspace packages.
-- The Replit API server requires `DATABASE_URL` for its PostgreSQL-backed feedback route.
+- The Replit preview API is for development only; do not configure Google Sheets credentials in Replit.
 - For Vercel deployment and Google Sheets setup, follow `docs/google-sheets-vercel.md`.
 
 ## Stack
@@ -34,7 +34,7 @@ A post-event form where Columbus Women Connect conference participants can rate 
 
 - Vercel serves the Vite build as static files and exposes the separate root-level `api/feedback.ts` function.
 - The Vercel function only reports success after Apps Script confirms the row was appended; the shared secret remains server-side.
-- Replit preview uses the Express/PostgreSQL route. Configure the documented Vercel variables in Replit Secrets too if preview submissions should also reach the sheet.
+- Production submissions go through Vercel's serverless route and Google Apps Script. Do not connect the Replit API to the sheet.
 
 ## Product
 
@@ -47,7 +47,7 @@ Deployments for public submissions are expected to run on Vercel and write feedb
 ## Gotchas
 
 - Vercel's Root Directory must remain the repository root so it can see both the pnpm workspace and the API function.
-- Add `GOOGLE_SHEETS_WEB_APP_URL` and `GOOGLE_SHEETS_WEBHOOK_SECRET` to each Vercel environment that should accept submissions, then redeploy.
+- Add `GOOGLE_SHEETS_WEB_APP_URL` and `GOOGLE_SHEETS_WEBHOOK_SECRET` only to Vercel environments that should accept submissions, then redeploy.
 
 ## Pointers
 
