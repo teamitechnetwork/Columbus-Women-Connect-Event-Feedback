@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Columbus Women Connect Feedback"
+description = "A welcoming post-event feedback form for participants of Columbus Women Connect’s Third Multicultural Annual Conference, collecting ratings, comments, and follow-up preferences."
+version = "1.0.0"
+id = "artifacts/cwc-feedback"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22227
+
+[services.development]
+run = "pnpm --filter @workspace/cwc-feedback run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cwc-feedback", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cwc-feedback/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22227"
+BASE_PATH = "/"

@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: feedback
+    description: Event participant feedback submissions
 paths:
   /healthz:
     get:
@@ -24,6 +26,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /feedback:
+    post:
+      operationId: createFeedback
+      tags: [feedback]
+      summary: Submit event feedback
+      description: Saves a participant's post-event feedback and follow-up preferences.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeedbackInput"
+      responses:
+        "201":
+          description: Feedback saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackSubmission"
+        "400":
+          description: Invalid feedback
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Unable to save feedback
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +66,65 @@ components:
           type: string
       required:
         - status
+    FeedbackInput:
+      type: object
+      properties:
+        fullName:
+          type: string
+          minLength: 1
+          maxLength: 120
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone:
+          type: ["string", "null"]
+          maxLength: 40
+        organization:
+          type: ["string", "null"]
+          maxLength: 120
+        overallRating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        mostValuable:
+          type: ["string", "null"]
+          maxLength: 2000
+        improvements:
+          type: ["string", "null"]
+          maxLength: 2000
+        futureTopics:
+          type: ["string", "null"]
+          maxLength: 2000
+        contactRequested:
+          type: boolean
+        futureUpdates:
+          type: boolean
+      required:
+        - fullName
+        - email
+        - overallRating
+        - contactRequested
+        - futureUpdates
+    FeedbackSubmission:
+      type: object
+      properties:
+        id:
+          type: integer
+        submittedAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+      required:
+        - id
+        - submittedAt
+        - message
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
 
