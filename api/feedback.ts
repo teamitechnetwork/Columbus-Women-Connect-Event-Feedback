@@ -1,12 +1,20 @@
 /// <reference lib="dom" />
 
-import {
-  CreateFeedbackBody,
-  CreateFeedbackResponse,
-} from "../lib/api-zod/src/generated/api";
-
 declare const process: {
   env: Record<string, string | undefined>;
+};
+
+type FeedbackPayload = {
+  fullName: string;
+  email: string;
+  phone?: string | null;
+  organization?: string | null;
+  overallRating: number;
+  mostValuable?: string | null;
+  improvements?: string | null;
+  futureTopics?: string | null;
+  contactRequested: boolean;
+  futureUpdates: boolean;
 };
 
 type VercelRequest = {
@@ -26,6 +34,41 @@ type SheetResponse = {
   submittedAt?: unknown;
 };
 
+function isOptionalText(value: unknown, maxLength: number): boolean {
+  return (
+    value == null ||
+    (typeof value === "string" && value.length <= maxLength)
+  );
+}
+
+function isFeedbackPayload(value: unknown): value is FeedbackPayload {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return false;
+  }
+
+  const feedback = value as Record<string, unknown>;
+  const email = typeof feedback.email === "string" ? feedback.email.trim() : "";
+
+  return (
+    typeof feedback.fullName === "string" &&
+    feedback.fullName.trim().length > 0 &&
+    feedback.fullName.length <= 120 &&
+    email.length > 0 &&
+    email.length <= 254 &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+    isOptionalText(feedback.phone, 40) &&
+    isOptionalText(feedback.organization, 120) &&
+    Number.isInteger(feedback.overallRating) &&
+    (feedback.overallRating as number) >= 1 &&
+    (feedback.overallRating as number) <= 5 &&
+    isOptionalText(feedback.mostValuable, 2000) &&
+    isOptionalText(feedback.improvements, 2000) &&
+    isOptionalText(feedback.futureTopics, 2000) &&
+    typeof feedback.contactRequested === "boolean" &&
+    typeof feedback.futureUpdates === "boolean"
+  );
+}
+
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
@@ -36,16 +79,20 @@ export default async function handler(
     return;
   }
 
-  const parsed = CreateFeedbackBody.safeParse(req.body);
-  if (!parsed.success) {
+  const feedback = req.body;
+  if (!isFeedbackPayload(feedback)) {
     res.status(400).json({
       error: "Please check your details and try submitting again.",
     });
     return;
   }
 
-  const webAppUrl = process.env.GOOGLE_SHEETS_WEB_APP_URL?.trim();
-  const webhookSecret = process.env.GOOGLE_SHEETS_WEBHOOK_SECRET;
+  // Accept the existing Vercel names as well as the documented names.
+  const webAppUrl =
+    process.env.GOOGLE_SHEETS_WEB_APP_URL?.trim() ||
+    process.env.GOOGLE_SCRIPT_URL?.trim();
+  const webhookSecret =
+    process.env.GOOGLE_SHEETS_WEBHOOK_SECRET || process.env.GOOGLE_SCRIPT_SECRET;
 
   if (!webAppUrl || !webhookSecret) {
     res.status(503).json({
@@ -78,7 +125,7 @@ export default async function handler(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         secret: webhookSecret,
-        feedback: parsed.data,
+        feedback,
       }),
       signal: AbortSignal.timeout(8_000),
     });
@@ -96,12 +143,20 @@ export default async function handler(
     // Treat a non-JSON or malformed Apps Script response as a failed delivery.
   }
 
+  const submittedAt =
+    typeof sheetResult?.submittedAt === "string"
+      ? new Date(sheetResult.submittedAt)
+      : null;
+
   if (
     !sheetResponse.ok ||
     !sheetResult ||
     sheetResult.ok !== true ||
     typeof sheetResult.id !== "number" ||
-    typeof sheetResult.submittedAt !== "string"
+    !Number.isInteger(sheetResult.id) ||
+    sheetResult.id < 1 ||
+    !submittedAt ||
+    !Number.isFinite(submittedAt.getTime())
   ) {
     res.status(502).json({
       error: "We couldn't save your feedback just now. Please try again.",
@@ -109,18 +164,9 @@ export default async function handler(
     return;
   }
 
-  const response = CreateFeedbackResponse.safeParse({
+  res.status(201).json({
     id: sheetResult.id,
-    submittedAt: sheetResult.submittedAt,
+    submittedAt: submittedAt.toISOString(),
     message: "Thank you for sharing your feedback with us.",
   });
-
-  if (!response.success) {
-    res.status(502).json({
-      error: "We couldn't save your feedback just now. Please try again.",
-    });
-    return;
-  }
-
-  res.status(201).json(response.data);
 }
