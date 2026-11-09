@@ -359,14 +359,14 @@ button, input, textarea {
   background-image: url("/conference-poster.jpeg");
   background-position: center;
   background-size: cover;
-  filter: blur(10px);
-  opacity: .52;
+  filter: blur(4px);
+  opacity: .68;
   transform: scale(1.04);
 }
 
 .feedback-shell::after {
   z-index: -1;
-  background: rgba(247, 244, 237, .64);
+  background: rgba(247, 244, 237, .56);
 }
 
 .feedback-wrap {
